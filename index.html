@@ -20,116 +20,196 @@
     }
     .form-shell {
       background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(5, 8, 35, 0.20);
       overflow: hidden;
       border: 1px solid #e0e3f0;
-      max-width: 420px;
+      max-width: 440px;
       width: 100%;
     }
     .form-header {
       background: #0b1030;
       color: #ffffff;
-      padding: 22px 26px;
+      padding: 26px 26px 24px;
       text-align: center;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 22px;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .form-body { padding: 28px 30px 30px; }
-    .field-group { margin-bottom: 14px; }
-    .field-input,
-    .phone-input {
-      width: 100%;
-      padding: 14px 14px;
-      border-radius: 6px;
-      border: 1px solid #c5cadc;
-      font-size: 15px;
-      outline: none;
-      transition: border-color .18s, box-shadow .18s, background-color .18s;
-      background: #fbfcff;
+    .form-body {
+      padding: 28px 30px 26px;
     }
-    .field-input::placeholder { color: #9aa1ba; }
-    .field-input:focus,
-    .phone-input:focus {
-      border-color: #192555;
-      box-shadow: 0 0 0 1px rgba(25,37,85,0.18);
+    .field-group {
+      margin-bottom: 14px;
+    }
+
+    /* Input with icon wrapper */
+    .field-wrapper {
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      border: 1px solid #c5cadc;
+      background: #fbfcff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+      transition: border-color .18s, box-shadow .18s, background-color .18s;
+    }
+    .field-wrapper:focus-within {
+      border-color: #18234f;
+      box-shadow: 0 0 0 1px rgba(24,35,79,0.20), 0 10px 22px rgba(10, 18, 60, 0.24);
       background: #ffffff;
     }
+    .field-icon {
+      width: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #c5cadc;
+      font-size: 18px;
+      color: #8288a8;
+      background: linear-gradient(135deg, #f6f7ff, #edf0ff);
+    }
+    .field-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 16px;
+      font-size: 15px;
+      border-radius: 10px;
+      background: transparent;
+    }
+    .field-input::placeholder {
+      color: #a0a7c0;
+    }
+
+    /* Phone field */
     .phone-wrapper {
       display: flex;
       align-items: stretch;
-      border-radius: 6px;
-      overflow: hidden;
+      border-radius: 10px;
       border: 1px solid #c5cadc;
       background: #fbfcff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
       transition: border-color .18s, box-shadow .18s, background-color .18s;
     }
     .phone-wrapper:focus-within {
-      border-color: #192555;
-      box-shadow: 0 0 0 1px rgba(25,37,85,0.18);
+      border-color: #18234f;
+      box-shadow: 0 0 0 1px rgba(24,35,79,0.20), 0 10px 22px rgba(10, 18, 60, 0.24);
       background: #ffffff;
     }
     .phone-prefix {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 0 12px;
+      gap: 8px;
+      padding: 0 14px;
       background: #eef0f9;
       border-right: 1px solid #c5cadc;
       font-size: 14px;
       white-space: nowrap;
     }
-    .flag { font-size: 18px; }
-    .phone-code { font-weight: 500; color: #11152d; }
-    .phone-input {
-      border: none;
-      border-radius: 0;
-      background: transparent;
-      flex: 1;
+    .phone-prefix .flag-box {
+      width: 22px;
+      height: 14px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
     }
+    .phone-prefix .flag-box span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom,
+        #000000 0 33.33%,
+        #dd0000 33.33% 66.66%,
+        #ffce00 66.66% 100%);
+    }
+    .phone-prefix-label {
+      font-weight: 600;
+      color: #151937;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+    .phone-code {
+      font-weight: 600;
+      color: #11152d;
+    }
+    .phone-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 16px;
+      font-size: 15px;
+      border-radius: 10px;
+      background: transparent;
+    }
+    .phone-input::placeholder {
+      color: #a0a7c0;
+    }
+
     .submit-btn {
       width: 100%;
-      margin-top: 12px;
-      padding: 14px 16px;
+      margin-top: 18px;
+      padding: 15px 18px;
       background: #0b1030;
       color: #ffffff;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 15px;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      border-radius: 8px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 7px 14px rgba(8,12,40,0.35);
-      transition: transform .1s, box-shadow .1s, opacity .15s;
+      box-shadow: 0 16px 30px rgba(8,12,40,0.45);
+      transition: transform .1s, box-shadow .1s, opacity .15s, background .15s;
     }
     .submit-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(8,12,40,0.4);
+      box-shadow: 0 18px 36px rgba(8,12,40,0.55);
+      background: #111741;
     }
     .submit-btn:active {
       transform: translateY(0);
-      box-shadow: 0 5px 12px rgba(8,12,40,0.25);
+      box-shadow: 0 10px 24px rgba(8,12,40,0.35);
     }
-    .submit-btn[disabled] { opacity: .65; cursor: not-allowed; box-shadow: none; }
+    .submit-btn[disabled] {
+      opacity: .65;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
     .error-box {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       padding: 10px 12px;
-      border-radius: 6px;
+      border-radius: 10px;
       background: #fff3f3;
       border: 1px solid #f1c0c0;
       color: #742020;
       font-size: 13px;
       display: none;
     }
-    .error-box ul { margin: 4px 0 0; padding-left: 18px; }
-    .note { margin-top: 8px; font-size: 11px; color: #7a81a0; text-align: center; }
+    .error-box ul {
+      margin: 4px 0 0;
+      padding-left: 18px;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #8187a5;
+      text-align: center;
+    }
+
     @media (max-width: 480px) {
-      .form-shell { margin: 16px; }
-      .form-header { font-size: 18px; padding-inline: 18px; }
-      .form-body { padding-inline: 18px; }
+      .form-shell {
+        margin: 18px;
+      }
+      .form-header {
+        font-size: 19px;
+        padding-inline: 18px;
+      }
+      .form-body {
+        padding-inline: 18px;
+      }
     }
   </style>
 </head>
@@ -139,35 +219,70 @@
     <div class="form-body">
       <div id="error-box" class="error-box"></div>
 
-      <!-- IMPORTANT: posts to /register (Cloudflare Function) -->
-      <form id="lead-form" method="POST" action="/register" autocomplete="on">
+      <!-- IMPORTANT: still posts to /register -->
+      <form id="lead-form" method="POST" action="/register" autocomplete="on" novalidate>
         <div class="field-group">
-          <input type="text" name="first_name" class="field-input" placeholder="Name" required />
+          <div class="field-wrapper">
+            <div class="field-icon">
+              <!-- person icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" fill="#747aa0"></circle>
+                <path d="M4 20c0-3.3137 2.6863-6 6-6h4c3.3137 0 6 2.6863 6 6" fill="none" stroke="#747aa0" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <input type="text" name="first_name" class="field-input" placeholder="Name" required />
+          </div>
         </div>
 
         <div class="field-group">
-          <input type="text" name="last_name" class="field-input" placeholder="Nachname" required />
+          <div class="field-wrapper">
+            <div class="field-icon">
+              <!-- second person icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" fill="#747aa0"></circle>
+                <path d="M4 20c0-3.3137 2.6863-6 6-6h4c3.3137 0 6 2.6863 6 6" fill="none" stroke="#747aa0" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <input type="text" name="last_name" class="field-input" placeholder="Nachname" required />
+          </div>
         </div>
 
         <div class="field-group">
-          <input type="email" name="email" class="field-input" placeholder="E-Mail" required />
+          <div class="field-wrapper">
+            <div class="field-icon">
+              <!-- email icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2" fill="none" stroke="#747aa0" stroke-width="1.6"/>
+                <polyline points="4,7 12,12 20,7" fill="none" stroke="#747aa0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <input type="email" name="email" class="field-input" placeholder="E-Mail" required />
+          </div>
         </div>
 
         <div class="field-group">
           <div class="phone-wrapper">
             <div class="phone-prefix">
-              <span class="flag">🇩🇪</span>
+              <div class="flag-box"><span></span></div>
+              <span class="phone-prefix-label">DE</span>
               <span class="phone-code">+49</span>
             </div>
-            <input type="tel" name="phone" class="phone-input" placeholder="1512 3456789" required />
+            <input
+              type="tel"
+              name="phone"
+              class="phone-input"
+              placeholder="1512 3456789"
+              inputmode="numeric"
+              autocomplete="tel"
+              required
+            />
           </div>
         </div>
 
-        <!-- Hidden fields -->
+        <!-- Hidden constants -->
         <input type="hidden" name="country" value="DE" />
         <input type="hidden" name="phonecc" value="+49" />
-
-        <!-- Optional: clickid from Keitaro / traffic source -->
+        <!-- Keitaro clickid -->
         <input type="hidden" name="aff_sub" id="aff_sub" />
 
         <button type="submit" class="submit-btn" id="submit-btn">EINREICHEN</button>
@@ -178,26 +293,70 @@
   </div>
 
   <script>
-    // Put Keitaro/traffic click id into aff_sub if present
-    const params = new URLSearchParams(window.location.search);
-    const clickId = params.get("click_id") || params.get("clickid") || params.get("subid") || "";
-    if (clickId) {
-      document.getElementById("aff_sub").value = clickId;
-    }
+    const errorBox  = document.getElementById("error-box");
+    const form      = document.getElementById("lead-form");
+    const submitBtn = document.getElementById("submit-btn");
+    const phoneInput = document.querySelector('input[name="phone"]');
 
-    // Front-end display for errors (coming from /register when we debug)
-    const errorBox = document.getElementById("error-box");
-    function showErrors(msgs) {
-      if (!msgs || !msgs.length) {
+    function showErrors(messages) {
+      if (!messages || !messages.length) {
         errorBox.style.display = "none";
         errorBox.innerHTML = "";
         return;
       }
-      const lis = msgs.map((m) => `<li>${m}</li>`).join("");
-      errorBox.innerHTML = `<strong>Bitte überprüfen Sie Ihre Eingaben:</strong><ul>${lis}</ul>`;
+      const html = messages.map(m => `<li>${m}</li>`).join("");
+      errorBox.innerHTML = `<strong>Bitte überprüfen Sie Ihre Eingaben:</strong><ul>${html}</ul>`;
       errorBox.style.display = "block";
     }
-    // We'll use showErrors later when we need client-side debugging
+
+    // Grab Keitaro clickid/subid from URL
+    (function setClickId() {
+      const params = new URLSearchParams(window.location.search);
+      const clickId = params.get("click_id") || params.get("clickid") || params.get("subid") || "";
+      if (clickId) {
+        document.getElementById("aff_sub").value = clickId;
+      }
+    })();
+
+    function validatePhone() {
+      const raw = (phoneInput.value || "").replace(/\D/g, "");
+      if (!raw) {
+        return "Bitte geben Sie Ihre Telefonnummer ein.";
+      }
+      if (raw.length < 9 || raw.length > 11) {
+        return "Bitte geben Sie eine gültige deutsche Telefonnummer mit 9–11 Ziffern ein.";
+      }
+      return "";
+    }
+
+    form.addEventListener("submit", function (e) {
+      const errors = [];
+
+      // Let browser check basic 'required' and email format
+      if (!form.checkValidity()) {
+        // this will trigger native error bubbles
+        e.preventDefault();
+        form.reportValidity();
+        return;
+      }
+
+      const phoneError = validatePhone();
+      if (phoneError) {
+        errors.push(phoneError);
+      }
+
+      if (errors.length) {
+        e.preventDefault();
+        showErrors(errors);
+        phoneInput.focus();
+        return;
+      }
+
+      // no extra errors -> allow submit
+      showErrors([]);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Wird gesendet...";
+    });
   </script>
 </body>
 </html>
