@@ -1,8 +1,11 @@
 // /functions/register.js
 
-const API_URL = "https://vip.nidajaa.com/api";  // <= use EXACT working URL from send.php
-const AFF_ID  = "28357";                        // <= your affiliate ID
-const OFFER_ID = "1737";                        // <= or null if your manager says no offer_id needed
+const API_URL  = "https://vip.nidajaa.com/api";  // <= use EXACT working URL from send.php
+const AFF_ID   = "28357";                        // <= your affiliate ID
+const OFFER_ID = "1737";                         // <= or null if your manager says no offer_id needed
+
+// 🔹 NEW: your funnel / offer name for aff_sub3
+const OFFER_NAME = "AuroraX";
 
 function generatePassword() {
   const lower = "abcdefghijklmnopqrstuvwxyz";
@@ -24,13 +27,13 @@ function generatePassword() {
 
 export async function onRequestPost({ request }) {
   try {
-    const url = new URL(request.url);
+    const url  = new URL(request.url);
     const form = await request.formData();
 
     const first_name = (form.get("first_name") || "").trim();
-    const last_name  = (form.get("last_name") || "").trim();
-    const email      = (form.get("email") || "").trim();
-    const phone      = (form.get("phone") || "").trim();
+    const last_name  = (form.get("last_name")  || "").trim();
+    const email      = (form.get("email")      || "").trim();
+    const phone      = (form.get("phone")      || "").trim();
     const phonecc    = form.get("phonecc") || "+49";
     const country    = form.get("country") || "DE";
     const aff_sub    = form.get("aff_sub") || "";
@@ -51,7 +54,11 @@ export async function onRequestPost({ request }) {
       user_ip,
       aff_sub,
       aff_id: AFF_ID,
-      aff_sub3: url.hostname,      // similar to 'Source'
+
+      // 🔹 CHANGED: send fixed offer name in aff_sub3
+      aff_sub3: OFFER_NAME,
+      // optional: also send domain in another sub if you want:
+      // aff_sub4: url.hostname,
     });
 
     if (country) params.set("country", country);
@@ -81,7 +88,6 @@ export async function onRequestPost({ request }) {
     try {
       data = JSON.parse(text);
     } catch (e) {
-      // Debug helper: show raw response if it isn't JSON
       return new Response(
         "API response is not JSON. Raw response:\n\n" + text,
         { status: 502, headers: { "Content-Type": "text/plain; charset=utf-8" } }
@@ -89,7 +95,6 @@ export async function onRequestPost({ request }) {
     }
 
     if (!data.success) {
-      // When debugging: show API errors in browser
       return new Response(JSON.stringify(data, null, 2), {
         status: 400,
         headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -98,7 +103,6 @@ export async function onRequestPost({ request }) {
 
     const advertiserUrl = data.redirect;
 
-    // Thanks-page flow: redirect to /thanks.html with advertiser URL
     const thanksUrl = new URL("/thanks.html", url.origin);
     thanksUrl.searchParams.set("redirect", advertiserUrl);
 
