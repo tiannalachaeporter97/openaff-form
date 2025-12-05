@@ -3,7 +3,7 @@
 const API_URL     = "https://vip.nidajaa.com/api";  // exact URL from working send.php
 const AFF_ID      = "28357";                        // your affiliate ID
 const OFFER_ID    = "1737";                         // or null if not needed
-const FUNNEL_NAME = "AuroraX";                      // your funnel / offer name
+const FUNNEL_NAME = "AuroraX2";                      // your funnel / offer name
 
 function generatePassword() {
   const lower = "abcdefghijklmnopqrstuvwxyz";
