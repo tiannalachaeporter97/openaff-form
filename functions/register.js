@@ -1,9 +1,9 @@
 // /functions/register.js
 
-const API_URL   = "https://vip.nidajaa.com/api";  // exact URL from working send.php
-const AFF_ID    = "28357";                        // your affiliate ID
-const OFFER_ID  = "1737";                         // or null if not needed
-const FUNNEL_NAME = "AuroraX";                   // <-- your offer / funnel name
+const API_URL     = "https://vip.nidajaa.com/api";  // exact URL from working send.php
+const AFF_ID      = "28357";                        // your affiliate ID
+const OFFER_ID    = "1737";                         // or null if not needed
+const FUNNEL_NAME = "AuroraX";                      // your funnel / offer name
 
 function generatePassword() {
   const lower = "abcdefghijklmnopqrstuvwxyz";
@@ -32,16 +32,16 @@ export async function onRequestPost({ request }) {
     const last_name  = (form.get("last_name")  || "").trim();
     const email      = (form.get("email")      || "").trim();
     const phone      = (form.get("phone")      || "").trim();
+
+    // keep the currently working behaviour: no "+" in phonecc
     const phonecc    = (form.get("phonecc")    || "49").replace("+", "");
     const country    = form.get("country") || "DE";
     const aff_sub    = form.get("aff_sub") || "";
 
     const password   = generatePassword();
 
-    // IP similar to $_SERVER['REMOTE_ADDR']
     const user_ip = request.headers.get("CF-Connecting-IP") || "149.36.50.163";
 
-    // Build query string similar to send.php
     const params = new URLSearchParams({
       first_name,
       last_name,
@@ -53,16 +53,14 @@ export async function onRequestPost({ request }) {
       aff_sub,
       aff_id: AFF_ID,
 
-      // what the original script used as “Source”
-      aff_sub3: url.hostname,
-
-      // your funnel / offer name here
-      aff_sub4: FUNNEL_NAME,
+      // 🔴 only funnel name in sub3 now
+      aff_sub3: FUNNEL_NAME,
     });
 
     if (country)  params.set("country", country);
     if (OFFER_ID) params.set("offer_id", OFFER_ID);
 
+    // they can see the full page URL from this
     const referer = request.headers.get("Referer");
     if (referer) params.set("referer", referer);
 
@@ -86,7 +84,6 @@ export async function onRequestPost({ request }) {
     try {
       data = JSON.parse(text);
     } catch (e) {
-      // show raw API response for debugging
       return new Response(
         "API response is not JSON. Raw response:\n\n" + text,
         { status: 502, headers: { "Content-Type": "text/plain; charset=utf-8" } }
