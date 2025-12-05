@@ -1,24 +1,22 @@
 // /functions/register.js
 
-const API_URL  = "https://vip.nidajaa.com/api";  // <= use EXACT working URL from send.php
-const AFF_ID   = "28357";                        // <= your affiliate ID
-const OFFER_ID = "1737";                         // <= or null if your manager says no offer_id needed
-
-// 🔹 NEW: your funnel / offer name for aff_sub3
-const OFFER_NAME = "AuroraX";
+const API_URL   = "https://vip.nidajaa.com/api";  // exact URL from working send.php
+const AFF_ID    = "28357";                        // your affiliate ID
+const OFFER_ID  = "1737";                         // or null if not needed
+const FUNNEL_NAME = "AuroraX";                   // <-- your offer / funnel name
 
 function generatePassword() {
   const lower = "abcdefghijklmnopqrstuvwxyz";
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const digits = "0123456789";
-  const all = lower + upper + digits;
+  const all   = lower + upper + digits;
 
   let pwd = "";
   pwd += lower[Math.floor(Math.random() * lower.length)];
   pwd += upper[Math.floor(Math.random() * upper.length)];
   pwd += digits[Math.floor(Math.random() * digits.length)];
 
-  const length = 8 + Math.floor(Math.random() * 5); // 8–12
+  const length = 8 + Math.floor(Math.random() * 5); // 8–12 chars
   while (pwd.length < length) {
     pwd += all[Math.floor(Math.random() * all.length)];
   }
@@ -34,16 +32,16 @@ export async function onRequestPost({ request }) {
     const last_name  = (form.get("last_name")  || "").trim();
     const email      = (form.get("email")      || "").trim();
     const phone      = (form.get("phone")      || "").trim();
-    const phonecc    = form.get("phonecc") || "+49";
+    const phonecc    = (form.get("phonecc")    || "49").replace("+", "");
     const country    = form.get("country") || "DE";
     const aff_sub    = form.get("aff_sub") || "";
 
     const password   = generatePassword();
 
-    // IP from Cloudflare edge (like $_SERVER['REMOTE_ADDR'])
+    // IP similar to $_SERVER['REMOTE_ADDR']
     const user_ip = request.headers.get("CF-Connecting-IP") || "149.36.50.163";
 
-    // Build query string like send.php does
+    // Build query string similar to send.php
     const params = new URLSearchParams({
       first_name,
       last_name,
@@ -55,16 +53,16 @@ export async function onRequestPost({ request }) {
       aff_sub,
       aff_id: AFF_ID,
 
-      // 🔹 CHANGED: send fixed offer name in aff_sub3
-      aff_sub3: OFFER_NAME,
-      // optional: also send domain in another sub if you want:
-      // aff_sub4: url.hostname,
+      // what the original script used as “Source”
+      aff_sub3: url.hostname,
+
+      // your funnel / offer name here
+      aff_sub4: FUNNEL_NAME,
     });
 
-    if (country) params.set("country", country);
+    if (country)  params.set("country", country);
     if (OFFER_ID) params.set("offer_id", OFFER_ID);
 
-    // Optional: referer, similar to send.php's $_POST['ref']
     const referer = request.headers.get("Referer");
     if (referer) params.set("referer", referer);
 
@@ -88,6 +86,7 @@ export async function onRequestPost({ request }) {
     try {
       data = JSON.parse(text);
     } catch (e) {
+      // show raw API response for debugging
       return new Response(
         "API response is not JSON. Raw response:\n\n" + text,
         { status: 502, headers: { "Content-Type": "text/plain; charset=utf-8" } }
